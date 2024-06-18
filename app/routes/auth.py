@@ -5,6 +5,7 @@ from ..utils import get_user, verify_password
 
 router = APIRouter()
 
+#Route for user login
 @router.post("/login")
 async def login(login: LoginModel):
     user = get_user(login.email)

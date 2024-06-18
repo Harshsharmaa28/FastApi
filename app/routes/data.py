@@ -1,8 +1,9 @@
 from fastapi import APIRouter, HTTPException
 from ..config import db
-
+#Intializing router
 router = APIRouter()
 
+#Route for getting user data
 @router.get("/user_data")
 async def get_user_data(email: str):
     user = db.users.find_one({"email": email})
@@ -12,6 +13,7 @@ async def get_user_data(email: str):
     linked_data = db.linked_data.find_one({"linked_id": user.get("linked_id")})
     return {"user": user, "linked_data": linked_data}
 
+#Route for deleting user data
 @router.delete("/delete_user")
 async def delete_user(email: str):
     user = db.users.find_one({"email": email})

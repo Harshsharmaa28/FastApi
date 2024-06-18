@@ -4,18 +4,21 @@ from ..config import db
 from ..utils import get_password_hash, get_user
 
 router = APIRouter()
-
+#Register Route
 @router.post("/register")
 async def register(user: User):
+    #checking that user Already exsist or not
     if get_user(user.email):
         raise HTTPException(status_code=400, detail="Email already registered")
     
+    #hashing the Password
     hashed_password = get_password_hash(user.password)
     user_in_db = UserInDB(**user.dict(), hashed_password=hashed_password)
     
     db.users.insert_one(user_in_db.dict())
     return {"msg": "User registered successfully"}
 
+#link_id Route
 @router.post("/link_id")
 async def link_id(link_id_data: LinkIDModel):
     user = get_user(link_id_data.email)

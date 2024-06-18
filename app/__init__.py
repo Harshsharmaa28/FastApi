@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from .config import connect_db
 from .routes import user, auth, data
 
+#Intialized the app
 app = FastAPI()
 
 # Connect to the database
